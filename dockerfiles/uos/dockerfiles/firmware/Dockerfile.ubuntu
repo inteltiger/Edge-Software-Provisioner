@@ -7,7 +7,7 @@ LABEL maintainer "Bryan J Rodriguez <bryan.j.rodriguez@intel.com>"
 ARG UBUNTU_RELEASE=5.8.0-42-generic
 ARG FIRMWARE=1.190.5_all
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
 		bash \
 		wget \
 		tar \

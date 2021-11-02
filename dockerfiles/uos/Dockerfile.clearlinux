@@ -8,7 +8,7 @@ ARG CLEARLINUX_RELEASE=34270
 ARG KERNEL_VERSION=5.10.15-1024
 ARG KERNEL_PREFIX
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
 	bash \
     wget \
 	tar \

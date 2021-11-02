@@ -69,7 +69,7 @@ if podman -v >/dev/null 2>&1; then
             docker run -d --privileged --name builder-docker ${DOCKER_RUN_ARGS} -v /tmp/builder:/var/run -v $(pwd)/lib/docker:/var/lib/docker docker:19.03.12-dind && \
             sleep 10 && \
             docker run -t --rm --privileged ${DOCKER_RUN_ARGS} -v $(pwd):/uos -v /tmp/builder:/var/run -v /tmp/host-builder:/tmp/host-docker docker:19.03.12-dind sh -c '\
-                apk update && apk add --no-cache \
+                sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
                     alpine-sdk \
                     coreutils \
                     git \
@@ -115,7 +115,7 @@ else
             echo 'Waiting for Docker'; \
             while (! docker -H unix:////tmp/builder/docker.sock ps > /dev/null 2>&1); do echo -n '.'; sleep 0.5; done; echo 'ready' && \
             docker run -t ${DOCKER_RUN_ARGS} --rm -v $(pwd):/uos -v /tmp/builder:/var/run -v /var/run:/tmp/host-docker docker:19.03.12-dind sh -c '\
-                apk update && apk add --no-cache \
+                sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
                     alpine-sdk \
                     coreutils \
                     git \
@@ -134,7 +134,7 @@ else
 fi
 run "(7/12) Prepping initrd" \
     "docker run -t --rm --privileged ${DOCKER_RUN_ARGS} -v $(pwd):/uos alpine:3.12 sh -c '\
-        apk update && apk add --no-cache \
+        sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
             bash \
             cpio \
             coreutils \

@@ -4,7 +4,7 @@
 FROM gitea/gitea:1.15.3
 LABEL maintainer "Bryan J Rodriguez <bryan.j.rodriguez@intel.com>"
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
       bash
 
 COPY init.sh /usr/local/bin/init.sh

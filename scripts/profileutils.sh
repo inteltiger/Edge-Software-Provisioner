@@ -1128,7 +1128,7 @@ genProfileUsbBoot() {
                         -v ${TFTP_IMAGES}/uos/usb:/opt/images:shared \
                         -v ${WEB_PROFILE}/${name}/embedded:/opt/profile_embedded:ro \
                         -v ${EMBEDDED_FILES}/${name}:/opt/embedded:ro \
-                        alpine:3.12 sh -c 'apk update && \
+                        alpine:3.12 sh -c 'sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && \
                             apk add rsync gzip cpio && \
                             mkdir -p prep/ && \
                             cd prep/ && \
@@ -1283,7 +1283,7 @@ genAllProfileUsbBoot() {
                         -v ${TFTP_IMAGES}/uos/usb:/opt/images:shared \
                         -v ${WEB_PROFILE}/${profile_name}/embedded:/opt/profile_embedded:ro \
                         -v ${EMBEDDED_FILES}/${profile_name}:/opt/embedded:ro \
-                        alpine:3.12 sh -c 'apk update && \
+                        alpine:3.12 sh -c 'sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && \
                             apk add rsync gzip cpio && \
                             mkdir -p prep/ && \
                             cd prep/ && \
