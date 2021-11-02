@@ -3,7 +3,7 @@
 
 FROM alpine:3.12
 
-RUN apk --no-cache update && \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk --no-cache update && \
     apk --no-cache add ca-certificates git openssh-client && \
     rm -rf /var/cache/apk/*
 

@@ -6,7 +6,7 @@
 FROM alpine:3.12
 LABEL maintainer "Bryan J Rodriguez <bryan.j.rodriguez@intel.com>"
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
       squid \
       openssl \
       ca-certificates \

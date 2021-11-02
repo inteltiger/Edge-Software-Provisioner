@@ -4,7 +4,7 @@
 FROM docker:20.10.2-dind
 LABEL maintainer "Bryan J Rodriguez <bryan.j.rodriguez@intel.com>"
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
     bash \
     ca-certificates \
     coreutils \

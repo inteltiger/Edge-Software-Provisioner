@@ -6,7 +6,7 @@ FROM alpine:3.12
 # Versions: https://pypi.python.org/pypi/awscli#downloads
 ENV AWS_CLI_VERSION 1.18.223
 
-RUN apk --no-cache update && \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk --no-cache update && \
     apk --no-cache add \
         python3 \
         py3-pip \

@@ -389,7 +389,7 @@ mirrorGitRepo() {
             rm -fr .git/ && \
             cd ../ && \
             git clone http://mirror:mirror@${builder_config_host_ip}:3003/mirror/${profile_name}___${repo_name}.git && \
-            docker run -t --rm -v $(pwd):/work alpine sh -c 'apk update && apk add --no-cache rsync && \
+            docker run -t --rm -v $(pwd):/work alpine sh -c 'sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache rsync && \
             cd work/ && \
             rsync -rtc --stats --progress --exclude=.git/ ${repo_name}/ ${profile_name}___${repo_name}/' && \
             cd ${profile_name}___${repo_name}/ && \
@@ -476,7 +476,7 @@ processEmbedded() {
             -v ${uos_profile_path}:/opt/images \
             -v ${WEB_PROFILE}/${profile_name}/embedded:/opt/profile_embedded \
             -v ${EMBEDDED_FILES}/${profile_name}:/opt/embedded \
-            alpine:3.12 sh -c 'apk update && \
+            alpine:3.12 sh -c 'sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && \
                 apk add rsync gzip && \
                 mkdir -p prep/ && \
                 cd prep/ && \

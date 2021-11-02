@@ -2,13 +2,13 @@
 # SPDX-License-Identifier: BSD-3-Clause
 
 FROM alpine:3.12 as pxeFileProvider64
-RUN apk --no-cache add syslinux
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk --no-cache add syslinux
 
 FROM alpine:3.12 as pxeFileProvider32
-RUN echo "x86" > /etc/apk/arch && apk --no-cache add syslinux
+RUN echo "x86" > /etc/apk/arch && sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk --no-cache add syslinux
 
 FROM alpine:3.12
-RUN apk --no-cache add dnsmasq nmap nmap-scripts wget \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk --no-cache add dnsmasq nmap nmap-scripts wget \
     && mkdir -p /srv/tftp/efi64 \
     && mkdir -p /srv/tftp/efi32 \
     && mkdir -p /srv/tftp/legacy

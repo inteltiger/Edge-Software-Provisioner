@@ -8,7 +8,7 @@ ARG UBUNTU_RELEASE=5.8.0-42-generic
 ARG KERNEL_VERSION=5.8.0-42.47_amd64
 ARG KERNEL_PREFIX
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
 		bash \
 		wget \
 		tar \

@@ -7,7 +7,7 @@ LABEL maintainer "Bryan J Rodriguez <bryan.j.rodriguez@intel.com>"
 ARG CLEARLINUX_RELEASE=34270
 ARG FIRMWARE=wifi-20210208-154
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
   	bash \
     wget \
 	  tar \

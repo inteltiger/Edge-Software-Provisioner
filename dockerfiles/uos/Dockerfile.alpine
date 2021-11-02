@@ -8,7 +8,7 @@ ARG ALPINELINUX_RELEASE=edge
 # ARG KERNEL_VERSION=4.19.26-r0
 # ARG KERNEL_PREFIX=vanilla
 
-RUN apk update && apk add --no-cache \
+RUN sed -i "s/mirrors.ustc.edu.cn/mirrors.ustc.edu.cn/g" /etc/apk/repositories && apk update && apk add --no-cache \
     bash \
     coreutils \
     cpio \
@@ -22,11 +22,11 @@ RUN apk update && apk add --no-cache \
 WORKDIR /build
 RUN mkdir /out
 
-RUN curl -s http://dl-cdn.alpinelinux.org/alpine/${ALPINELINUX_RELEASE}/main/x86_64/ | grep -Eo linux-vanilla-\[0-9\]\[\-\_\.0-9a-zA-Z\]+.apk | head -n1 > /tmp/KERNEL_FILE
+RUN curl -s http://mirrors.ustc.edu.cn/alpine/${ALPINELINUX_RELEASE}/main/x86_64/ | grep -Eo linux-vanilla-\[0-9\]\[\-\_\.0-9a-zA-Z\]+.apk | head -n1 > /tmp/KERNEL_FILE
 
-RUN KERNEL_FILE=$(cat /tmp/KERNEL_FILE) && wget http://dl-cdn.alpinelinux.org/alpine/${ALPINELINUX_RELEASE}/main/x86_64/${KERNEL_FILE}
+RUN KERNEL_FILE=$(cat /tmp/KERNEL_FILE) && wget http://mirrors.ustc.edu.cn/alpine/${ALPINELINUX_RELEASE}/main/x86_64/${KERNEL_FILE}
 
-# wget http://dl-cdn.alpinelinux.org/alpine/edge/main/x86_64/linux-vanilla-4.19.26-r0.apk
+# wget http://mirrors.ustc.edu.cn/alpine/edge/main/x86_64/linux-vanilla-4.19.26-r0.apk
 
 RUN KERNEL_FILE=$(cat /tmp/KERNEL_FILE) && gunzip -c < ${KERNEL_FILE} | tar xf - && \
     cp boot/vmlinuz* /out/kernel && \
